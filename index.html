@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Solid State by HTML5 UP</title>
+		<title>A Fruity Life</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -18,15 +18,15 @@
 			<div id="page-wrapper">
 
 				<!-- Header -->
-					<header id="header" class="alt">
+					<!--<header id="header" class="alt">
 						<h1><a href="index.html">Solid State</a></h1>
 						<nav>
 							<a href="#menu">Menu</a>
-						</nav>
-					</header>
+						</nav> 
+					</header> -->
 
 				<!-- Menu -->
-					<nav id="menu">
+					<!-- <nav id="menu">
 						<div class="inner">
 							<h2>Menu</h2>
 							<ul class="links">
@@ -38,14 +38,15 @@
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
-					</nav>
+					</nav> -->
 
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
-							<div class="logo"><span class="icon fa-gem"></span></div>
-							<h2>This is Solid State</h2>
-							<p>Another free + fully responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+							<!-- <div class="logo"><span class="icon fa-gem"></span></div> -->
+							<h2 id="dailyMessage">Getting a message...</h2>
+							<p style="font-style: italic; margin-bottom: 0;" id="randomeNote">From broccoli@afruitylife.com</p>
+							<p style="font-style: italic;" >Next uplifting message in: <span id="countdown">--:--:--</span></p>
 						</div>
 					</section>
 
@@ -89,7 +90,7 @@
 							</section>
 
 						<!-- Four -->
-							<section id="four" class="wrapper alt style1">
+							<!-- <section id="four" class="wrapper alt style1">
 								<div class="inner">
 									<h2 class="major">Vitae phasellus</h2>
 									<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
@@ -123,7 +124,7 @@
 										<li><a href="#" class="button">Browse All</a></li>
 									</ul>
 								</div>
-							</section>
+							</section> -->
 
 					</section>
 
@@ -157,10 +158,10 @@
 									1234 Somewhere Road Suite #2894<br />
 									Nashville, TN 00000-0000
 								</li>
-								<li class="icon solid fa-envelope"><a href="#">broccoli@afruitylife.com</a></li>
-								<li class="icon brands fa-youtube"><a href="#">https://www.youtube.com/@onefruitylife</a></li>
-								<li class="icon brands fa-tiktok"><a href="#">https://www.tiktok.com/@thefruitylife</a></li>
-								<li class="icon brands fa-instagram"><a href="#">https://www.instagram.com/a.fruity.life/</a></li>
+								<li class="icon solid fa-envelope"><a href="mailto:broccoli@afruitylife.com">broccoli@afruitylife.com</a></li>
+								<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@onefruitylife">youtube.com/@onefruitylife</a></li>
+								<li class="icon brands fa-tiktok"><a href="https://www.tiktok.com/@thefruitylife">tiktok.com/@thefruitylife</a></li>
+								<li class="icon brands fa-instagram"><a href="https://www.instagram.com/a.fruity.life">instagram.com/a.fruity.life</a></li>
 							</ul>
 							<ul class="copyright">
 								<li>A Fruity Life &copy; All rights reserved.</li><li>Design: <a href="https://the-real-han.github.io/">Han Tran</a><li>Template: <a href="https://html5up.net">HTML5 UP</a></li>
@@ -177,6 +178,106 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				function getUtcDaySeed() {
+					const now = new Date();
+
+					// Get UTC midnight in milliseconds
+					const utcMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+
+					// Number of milliseconds in one day
+					const msPerDay = 24 * 60 * 60 * 1000;
+
+					// Calculate how many full days have passed since epoch
+					return Math.floor(utcMidnight / msPerDay);
+				}
+
+				function seededRandom(seed) {
+					let state = seed >>> 0;
+					const a = 1103515245;
+					const c = 12345;
+					const m = 2 ** 31;
+
+					state = (a * state + c) % m;
+					return state / m;
+				}
+
+				const seed = getUtcDaySeed();
+				const dailyRandom = seededRandom(seed);
+				const dailyMessageIndex = Math.floor(dailyRandom * 365); // 0-364
+				const randomNoteIndex = Math.floor(Math.random() * 10); // 0-9
+
+				async function getStrAtIndex(url, index) {
+					try {
+						const response = await fetch(url);
+						if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+						const list = await response.json();
+
+						// Check index validity
+						if (!Array.isArray(list) || index < 0 || index >= list.length) {
+							throw new Error("Index out of bounds or invalid data format.");
+						}
+						console.log(index);
+						console.log(list[index]);
+						return list[index];
+					} catch (error) {
+						console.error("Error fetching or processing JSON:", error);
+						return null;
+					}
+				}
+
+				getStrAtIndex('/assets/messages.json', dailyMessageIndex).then(result => {
+					const heading = document.getElementById("dailyMessage");
+					heading.textContent = result;
+				});
+
+				getStrAtIndex('/assets/notes.json', randomNoteIndex).then(result => {
+					const heading = document.getElementById("randomeNote");
+					heading.textContent = result;
+				});
+
+				function updateCountdown() {
+					const now = new Date();
+
+					// Get UTC time now
+					const nowUtc = new Date(
+						Date.UTC(
+						now.getUTCFullYear(),
+						now.getUTCMonth(),
+						now.getUTCDate(),
+						now.getUTCHours(),
+						now.getUTCMinutes(),
+						now.getUTCSeconds()
+						)
+					);
+
+					// Get next UTC midnight
+					const nextMidnightUtc = new Date(Date.UTC(
+						now.getUTCFullYear(),
+						now.getUTCMonth(),
+						now.getUTCDate() + 1
+					));
+
+					// Time difference in milliseconds
+					const diffMs = nextMidnightUtc - nowUtc;
+
+					// Convert to hours, minutes, seconds
+					const totalSeconds = Math.floor(diffMs / 1000);
+					const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+					const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+					const seconds = String(totalSeconds % 60).padStart(2, '0');
+
+					// Update DOM
+					document.getElementById("countdown").textContent = `${hours}:${minutes}:${seconds}`;
+				}
+
+				// Initial run and start interval
+				updateCountdown();
+				setInterval(updateCountdown, 1000);
+
+
+			</script>
 
 	</body>
 </html>
