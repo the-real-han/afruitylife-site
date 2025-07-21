@@ -3999,12 +3999,12 @@ p.right {
 					padding: 2em 2em 0.1em 2em ;
 				}
 
-				.wrapper.spotlight .inner {
+				/*.wrapper.spotlight .inner {
 					-moz-align-items: -moz-flex-start;
 					-webkit-align-items: -webkit-flex-start;
 					-ms-align-items: -ms-flex-start;
-					align-items: flex-start;
-				}
+					 align-items: flex-start; 
+				}*/
 
 				.wrapper.spotlight .image {
 					width: 19em;
