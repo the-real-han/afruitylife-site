@@ -56,11 +56,11 @@
 						<!-- One -->
 							<section id="one" class="wrapper spotlight style1">
 								<div class="inner">
-									<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+									<iframe id="cartoonPlayer" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=O8bQNWeNXXLzFiJ5&amp;list=PLDc5RZT1Vrrtd4QZF3c3JCkBp7j_Kf0nW&amp;enablejsapi=1" title="Fruity Nonsense" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 									<div class="content">
-										<h2 class="major">Magna arcu feugiat</h2>
+										<h2 class="major">Some Fruity Nonsenses</h2>
 										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-										<a href="#" class="special">Learn more</a>
+										<a href="#" class="special">Learn More</a>
 									</div>
 								</div>
 							</section>
@@ -68,11 +68,11 @@
 						<!-- Two -->
 							<section id="two" class="wrapper alt spotlight style2">
 								<div class="inner">
-									<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+									<iframe id="booksPlayer" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=DmPnvdoSvmiwQ3Bl&amp;list=PLyH4zHjzywktPJjFFWbz2fJP1kVLKUGRR&amp;enablejsapi=1" title="Books For Thoughts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 									<div class="content">
-										<h2 class="major">Tempus adipiscing</h2>
+										<h2 class="major">Get To Know A Book</h2>
 										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-										<a href="#" class="special">Learn more</a>
+										<a href="#" class="special">Learn More</a>
 									</div>
 								</div>
 							</section>
@@ -82,7 +82,7 @@
 								<div class="inner">
 									<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
 									<div class="content">
-										<h2 class="major">Nullam dignissim</h2>
+										<h2 class="major">Move Your Body</h2>
 										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
 										<a href="#" class="special">Learn more</a>
 									</div>
@@ -131,9 +131,9 @@
 				<!-- Footer -->
 					<section id="footer">
 						<div class="inner">
-							<h2 class="major">Get in touch</h2>
-							<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
-							<form method="post" action="#">
+							<h2 class="major">Say Hi to the Fruit Squad</h2>
+							<p>Whether it’s feedback, a friendly note, or your favorite avocado joke, we’re all ears!</p>
+							<form id="contactSquad" action="https://formspree.io/f/xwpqvwzq" method="POST">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
@@ -151,20 +151,16 @@
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
+								<p id="submissionSTatus"></p>
 							</form>
 							<ul class="contact">
-								<li class="icon solid fa-home">
-									Untitled Inc<br />
-									1234 Somewhere Road Suite #2894<br />
-									Nashville, TN 00000-0000
-								</li>
 								<li class="icon solid fa-envelope"><a href="mailto:broccoli@afruitylife.com">broccoli@afruitylife.com</a></li>
 								<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@onefruitylife">youtube.com/@onefruitylife</a></li>
 								<li class="icon brands fa-tiktok"><a href="https://www.tiktok.com/@thefruitylife">tiktok.com/@thefruitylife</a></li>
 								<li class="icon brands fa-instagram"><a href="https://www.instagram.com/a.fruity.life">instagram.com/a.fruity.life</a></li>
 							</ul>
 							<ul class="copyright">
-								<li>A Fruity Life &copy; All rights reserved.</li><li>Design: <a href="https://the-real-han.github.io/">Han Tran</a><li>Template: <a href="https://html5up.net">HTML5 UP</a></li>
+								<li>A Fruity Life &copy; All rights reserved</li><li>Design: <a href="https://the-real-han.github.io/">Han Tran</a><li>Template: <a href="https://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</section>
@@ -276,6 +272,72 @@
 				updateCountdown();
 				setInterval(updateCountdown, 1000);
 
+				// 2. This code loads the IFrame Player API code asynchronously.
+				var tag = document.createElement('script');
+
+				tag.src = "https://www.youtube.com/iframe_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				// 3. This function creates an <iframe> (and YouTube player)
+				//    after the API code downloads.
+				var cartoonPlayer;
+				var booksPlayer;
+				function onYouTubeIframeAPIReady() {
+					cartoonPlayer = new YT.Player('cartoonPlayer', {
+					events: {
+						'onReady': onPlayerReady
+					}
+					});
+					booksPlayer = new YT.Player('booksPlayer', {
+					events: {
+						'onReady': onPlayerReady
+					}
+					});
+				}
+
+				// 4. The API will call this function when the video player is ready.
+				function onPlayerReady(event) {
+					event.target.setVolume(30);
+					setTimeout(function() {
+						event.target.setShuffle(true);
+					}, 1000);         
+				}
+
+				var form = document.getElementById("contactSquad");
+  
+				async function handleSubmit(event) {
+					event.preventDefault();
+					var status = document.getElementById("submissionSTatus");
+					var data = new FormData(event.target);
+					fetch(event.target.action, {
+					method: form.method,
+					body: data,
+					headers: {
+						'Accept': 'application/json'
+					}
+					}).then(response => {
+					if (response.ok) {
+						status.innerHTML = "Thanks for your submission!";
+						form.reset();
+						const allFormChildren = form.querySelectorAll("*");
+						allFormChildren.forEach(c => {
+							if ("disabled" in c) c.disabled = true;
+						})
+					} else {
+						response.json().then(data => {
+						if (Object.hasOwn(data, 'errors')) {
+							status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+						} else {
+							status.innerHTML = "Oops! There was a problem submitting your form"
+						}
+						})
+					}
+					}).catch(error => {
+						status.innerHTML = "Oops! There was a problem submitting your form"
+					});
+				}
+				form.addEventListener("submit", handleSubmit)
 
 			</script>
 
