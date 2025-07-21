@@ -72,6 +72,29 @@ input, select, textarea {
 	appearance: none;
 }
 
+iframe {
+	border-radius: 1rem;
+	aspect-ratio: 16 / 9;
+	max-width: 30vw;
+	
+}
+
+iframe.right {
+	margin: 0 0 1rem 4rem ;
+}
+
+iframe.left {
+	margin: 0 4rem 1rem 0 ;
+}
+
+p.left {
+	margin-left: 1rem;
+}
+
+p.right {
+	margin-right: 1rem;
+}
+
 /* Basic */
 
 	@-ms-viewport {
@@ -144,12 +167,19 @@ input, select, textarea {
 				font-size: 12pt;
 			}
 
+			iframe {
+				max-width: 35vw;
+			}
 		}
 
 		@media screen and (max-width: 980px) {
 
 			body, input, select, textarea {
 				font-size: 12pt;
+			}
+
+			iframe {
+				max-width: 40vw;
 			}
 
 		}
@@ -159,13 +189,20 @@ input, select, textarea {
 			body, input, select, textarea {
 				font-size: 12pt;
 			}
-
 		}
 
 		@media screen and (max-width: 480px) {
 
 			body, input, select, textarea {
 				font-size: 12pt;
+			}
+
+			iframe {
+				max-width: 80vw;
+			}
+
+			iframe.left, iframe.right {
+				margin: .5rem 0 1rem 0;
 			}
 
 		}
