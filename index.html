@@ -68,7 +68,7 @@
 						<!-- Two -->
 							<section id="two" class="wrapper alt spotlight style2" style="background: #D14979; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);">
 								<div class="inner">
-									<iframe id="booksPlayer" class="left" src="https://www.youtube.com/embed/videoseries?si=DmPnvdoSvmiwQ3Bl&amp;list=PLyH4zHjzywktPJjFFWbz2fJP1kVLKUGRR&amp;enablejsapi=1" title="Books For Thoughts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+									<iframe id="booksPlayer" class="left" src="https://www.youtube.com/embed/videoseries?si=DmPnvdoSvmiwQ3Bl&amp;list=PLyH4zHjzywktPJjFFWbz2fJP1kVLKUGRR&amp;enablejsapi=1&amp;loop=1" title="Books For Thoughts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 									<div class="content">
 										<h2 class="major">Get To Know A Book</h2>
 										<p class="right big">One book, one idea, one soft shift in your mindset. Skip the pressure to read everything — just absorb something uplifting today.</p>
@@ -215,8 +215,6 @@
 						if (!Array.isArray(list) || index < 0 || index >= list.length) {
 							throw new Error("Index out of bounds or invalid data format.");
 						}
-						console.log(index);
-						console.log(list[index]);
 						return list[index];
 					} catch (error) {
 						console.error("Error fetching or processing JSON:", error);
@@ -287,7 +285,8 @@
 				function onYouTubeIframeAPIReady() {
 					cartoonPlayer = new YT.Player('cartoonPlayer', {
 					events: {
-						'onReady': onPlayerReady
+						'onReady': onPlayerReady,
+						'onStateChange': onPlayerStateChange
 					}
 					});
 					booksPlayer = new YT.Player('booksPlayer', {
@@ -303,6 +302,21 @@
 					setTimeout(function() {
 						event.target.setShuffle(true);
 					}, 1000);         
+				}
+				var currentVideoIndex = -1;
+
+				function onPlayerStateChange(event) {
+					if (event.data === -1) {
+						if (currentVideoIndex === -1) {
+							currentVideoIndex = event.target.getPlaylistIndex();
+						} else {
+							if (event.target.getPlaylistIndex() !== currentVideoIndex) {
+								event.target.playVideoAt(currentVideoIndex);
+							}
+						}
+					} else if (event.data === 2) {
+						currentVideoIndex = -1;
+					}
 				}
 
 				var form = document.getElementById("contactSquad");
