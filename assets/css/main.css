@@ -3518,7 +3518,7 @@ p.big {
 		@media screen and (max-width: 980px) {
 
 			#banner {
-				padding: 12em 5em 11em 5em ;
+				padding: 11em 5em 10em 5em ;
 				margin-bottom: -4.75em;
 			}
 
@@ -3531,7 +3531,7 @@ p.big {
 		@media screen and (max-width: 736px) {
 
 			#banner {
-				padding: 11em 3em 7em 3em ;
+				padding: 10em 3em 6em 3em ;
 				margin-bottom: -2.5em;
 			}
 
@@ -3548,7 +3548,7 @@ p.big {
 				}
 
 				#banner p {
-					font-size: .95em;
+					font-size: .9em;
 				}
 
 		}
