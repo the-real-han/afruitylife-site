@@ -3470,7 +3470,7 @@ p.big {
 			filter: blur(0);
 			opacity: 1;
 			border-bottom: solid 2px rgba(255, 255, 255, 0.125);
-			font-size: 2.5em;
+			font-size: 2.6em;
 			margin-bottom: 0.8em;
 			padding-bottom: 0.4em;
 		}
@@ -3494,7 +3494,7 @@ p.big {
 			filter: blur(0);
 			opacity: 1;
 			font-family: Raleway, Helvetica, sans-serif;
-			font-size: 1.1em;
+			font-size: 1.2em;
 			font-weight: 200;
 			letter-spacing: 0.1em;
 			line-height: 2;
@@ -3544,11 +3544,11 @@ p.big {
 					}
 
 				#banner h2 {
-					font-size: 1.5em;
+					font-size: 1.6em;
 				}
 
 				#banner p {
-					font-size: 0.8em;
+					font-size: 0.9em;
 				}
 
 		}
