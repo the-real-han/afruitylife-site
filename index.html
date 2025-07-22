@@ -78,7 +78,7 @@
 					<section id="banner" style="background: #4DA167; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);">
 						<div class="inner">
 							<div class="logo"><span class="icon"><img src="/assets/profile.png" style="width:100%;" alt="Cherry and Broccoli hugging Avocado with big smiles — a sweet fruit-and-veggie family moment from A Fruity Life."/></span></div>
-							<h2 id="dailyMessage">Getting a message...</h2>
+							<h2><span id="dailyMessage">Getting a message...</span><span class="cursor">|</span></h2>
 							<p style="font-style: italic; margin-bottom: 0;" id="randomeNote">From broccoli@afruitylife.com</p>
 							<p style="font-style: italic;" >Next uplifting message in <span id="countdown">--:--:--</span></p>
 						</div>
@@ -258,7 +258,21 @@
 
 				getStrAtIndex('/assets/messages.json', dailyMessageIndex).then(result => {
 					const heading = document.getElementById("dailyMessage");
-					heading.textContent = result;
+					
+					var i = 0;
+					function typeWriter() {
+						if (heading.textContent === "Getting a message...") {
+							heading.textContent = "";
+						}
+						if (i < result.length) {
+							heading.textContent += result.charAt(i);
+							i++;
+							setTimeout(typeWriter, 50); // Adjust speed here
+						}
+					}
+					window.onload = (event) => {
+						setTimeout(typeWriter, 1500);
+					};
 				});
 
 				getStrAtIndex('/assets/notes.json', randomNoteIndex).then(result => {

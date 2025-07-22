@@ -72,6 +72,26 @@ input, select, textarea {
 	appearance: none;
 }
 
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  color: white; /* matches text */
+  font-weight: bold;
+}
+
+#dailyMessage {
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: inherit;
+	letter-spacing: inherit;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 iframe {
 	border-radius: 1rem;
 	aspect-ratio: 16 / 9;
