@@ -116,10 +116,11 @@
 								<div class="inner">
 									<a href="#" class="image"><img src="assets/move.gif" alt="" /></a>
 									<div class="content">
-										<h2 class="major">Move Your Body</h2>
+										<h2 class="major">The Daily Wiggle</h2>
 										<p class="left big" id="exerciseContent">Because emotional wellness lives in your body, not just your brain. Try one tiny movement — a stretch, a step, or a wobbly dance — and see how it feels. Move gently, move awkwardly — just move like a happy peach.
 										</p>
 										<a href="#" id="exerciseBtn" role="button" class="special">Challenge Of The Day</a>
+										<!-- <a href="#" id="doneBtn" role="button" class="special" style="display: none;">Challenge Completed</a> -->
 									</div>
 								</div>
 							</section>
@@ -389,9 +390,12 @@
 				});
 
 				const exerciseBtn = document.getElementById("exerciseBtn");
+				const doneBtn = document.getElementById("doneBtn");
 				exerciseBtn.addEventListener("click", function(event) {
 					event.preventDefault(); // Prevent the link from navigating
-					document.getElementById("exerciseContent").innerHTML = "<i class=\"fa fa-leaf\" aria-hidden=\"true\"></i> Today’s Fresh Air Challenge<br/><em>" + outdoor + "</em><br/><i class=\"fa fa-heartbeat\" aria-hidden=\"true\"></i> Or if you can't make it outside<br/><em>" + indoor + "</em>";
+					document.getElementById("exerciseContent").innerHTML = "*Take a moment to check your surroundings. Safety first, fruit second.<br/><em>" + outdoor + "</em> <b>OR</b> <em>" + indoor + "</em>";
+					//exerciseBtn.style = "display: none;";
+					//doneBtn.style = "display: block;";
 				});
 
 				var form = document.getElementById("contactSquad");
