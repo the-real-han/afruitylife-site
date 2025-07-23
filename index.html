@@ -105,8 +105,8 @@
 									<iframe id="booksPlayer" class="left" src="https://www.youtube.com/embed/videoseries?si=DmPnvdoSvmiwQ3Bl&amp;list=PLyH4zHjzywktPJjFFWbz2fJP1kVLKUGRR&amp;enablejsapi=1&amp;loop=1" title="Books For Thoughts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 									<div class="content">
 										<h2 class="major">Get To Know A Book</h2>
-										<p class="right big">One book, one idea, one soft shift in your mindset. Skip the pressure to read everything — just absorb something uplifting today.</p>
-										<a href="https://www.youtube.com/@BooksForThoughts" class="special" target="_blank">More Books</a>
+										<p class="right big" id="bookContent">One book, one idea, one soft shift in your mindset. Skip the pressure to read everything — just absorb something uplifting today.</p>
+										<a href="#" id="bookBtn" role="button" class="special">Book Of The Day</a>
 									</div>
 								</div>
 							</section>
@@ -117,9 +117,9 @@
 									<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
 									<div class="content">
 										<h2 class="major">Move Your Body</h2>
-										<p class="left big">Because emotional wellness lives in your body, not just your brain. Try one tiny movement — a stretch, a step, or a wobbly dance — and see how it feels. Move gently, move awkwardly — just move like a happy peach.
+										<p class="left big" id="exerciseContent">Because emotional wellness lives in your body, not just your brain. Try one tiny movement — a stretch, a step, or a wobbly dance — and see how it feels. Move gently, move awkwardly — just move like a happy peach.
 										</p>
-										<a href="#" class="special">Move Of The Day</a>
+										<a href="#" id="exerciseBtn" role="button" class="special">Move Of The Day</a>
 									</div>
 								</div>
 							</section>
@@ -235,15 +235,14 @@
 
 				const seed = getUtcDaySeed();
 				const dailyRandom = seededRandom(seed);
-				const dailyMessageIndex = Math.floor(dailyRandom * 365); // 0-364
-				const randomNoteIndex = Math.floor(Math.random() * 10); // 0-9
 
-				async function getStrAtIndex(url, index) {
+				async function getStrAtIndex(url, random) {
 					try {
+						
 						const response = await fetch(url);
 						if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
 						const list = await response.json();
+						const index = Math.floor(random * list.length);
 
 						// Check index validity
 						if (!Array.isArray(list) || index < 0 || index >= list.length) {
@@ -256,7 +255,7 @@
 					}
 				}
 
-				getStrAtIndex('/assets/messages.json', dailyMessageIndex).then(result => {
+				getStrAtIndex('/assets/data/messages.json', dailyRandom).then(result => {
 					const heading = document.getElementById("dailyMessage");
 					
 					var i = 0;
@@ -275,7 +274,7 @@
 					};
 				});
 
-				getStrAtIndex('/assets/notes.json', randomNoteIndex).then(result => {
+				getStrAtIndex('/assets/data/notes.json', Math.random()).then(result => {
 					const heading = document.getElementById("randomeNote");
 					heading.textContent = result;
 				});
@@ -366,6 +365,17 @@
 						currentVideoIndex = -1;
 					}
 				}
+
+				getStrAtIndex('/assets/data/books.json', dailyRandom).then(result => {
+					const bookBtn = document.getElementById("bookBtn");
+
+					bookBtn.addEventListener("click", function(event) {
+						event.preventDefault(); // Prevent the link from navigating
+						document.getElementById("bookContent").innerHTML = "Today's inspirational idea:<br/>" +result.message + "<br/><em>– " + result.info + "</em>";
+						result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+						document.getElementById("booksPlayer").src = result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/").replace("&", "?") + "&amp;enablejsapi=1&amp;loop=1";
+					});
+				});
 
 				var form = document.getElementById("contactSquad");
   
