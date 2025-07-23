@@ -9,7 +9,7 @@
 		<title>A Fruity Life – Daily Affirmations, Uplifting Shorts & Gentle Smiles</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="Start your day with gentle affirmations, silly fruit cartoons, and soft self-care prompts. A Fruity Life is your cozy corner of the internet – uplifting, kind, and always here for you.">
+		<meta name="description" content="Start your day with gentle affirmations, silly fruit cartoons, and soft self-care prompts.">
 		<meta name="keywords" content="daily affirmations, fruit cartoons, mental health, wholesome content, uplifting videos, cute animation, positive messages, emotional wellness, self care, self love, soft inspiration, cartoon shorts, A Fruity Life">
 		
 		<meta property="og:title" content="A Fruity Life – Gentle Daily Messages & Cartoons">
@@ -114,12 +114,12 @@
 						<!-- Three -->
 							<section id="three" class="wrapper spotlight style3" style="background: #F4B942; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);">
 								<div class="inner">
-									<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+									<a href="#" class="image"><img src="assets/move.gif" alt="" /></a>
 									<div class="content">
 										<h2 class="major">Move Your Body</h2>
 										<p class="left big" id="exerciseContent">Because emotional wellness lives in your body, not just your brain. Try one tiny movement — a stretch, a step, or a wobbly dance — and see how it feels. Move gently, move awkwardly — just move like a happy peach.
 										</p>
-										<a href="#" id="exerciseBtn" role="button" class="special">Move Of The Day</a>
+										<a href="#" id="exerciseBtn" role="button" class="special">Challenge Of The Day</a>
 									</div>
 								</div>
 							</section>
@@ -375,6 +375,23 @@
 						result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
 						document.getElementById("booksPlayer").src = result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/").replace("&", "?") + "&amp;enablejsapi=1&amp;loop=1";
 					});
+				});
+
+				var indoor = "";
+				var outdoor = "";
+
+				getStrAtIndex('/assets/data/indoor.json', dailyRandom).then(result => {
+					indoor = result;
+				});
+
+				getStrAtIndex('/assets/data/outdoor.json', dailyRandom).then(result => {
+					outdoor = result;
+				});
+
+				const exerciseBtn = document.getElementById("exerciseBtn");
+				exerciseBtn.addEventListener("click", function(event) {
+					event.preventDefault(); // Prevent the link from navigating
+					document.getElementById("exerciseContent").innerHTML = "<i class=\"fa fa-leaf\" aria-hidden=\"true\"></i> Today’s Fresh Air Challenge<br/><em>" + outdoor + "</em><br/><i class=\"fa fa-heartbeat\" aria-hidden=\"true\"></i> Or if you can't make it outside<br/><em>" + indoor + "</em>";
 				});
 
 				var form = document.getElementById("contactSquad");
