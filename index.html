@@ -106,7 +106,7 @@
 									<div class="content">
 										<h2 class="major">Get To Know A Book</h2>
 										<p class="right big" id="bookContent">One book, one idea, one soft shift in your mindset. Skip the pressure to read everything — just absorb something uplifting today.</p>
-										<a href="#" id="bookBtn" role="button" class="special">Book Of The Day</a>
+										<a href="javascript:void(0)" id="bookBtn" role="button" class="special">Book Of The Day</a>
 									</div>
 								</div>
 							</section>
@@ -119,7 +119,7 @@
 										<h2 class="major">The Daily Wiggle</h2>
 										<p class="left big" id="exerciseContent">Because emotional wellness lives in your body, not just your brain. Try one tiny movement — a stretch, a step, or a wobbly dance — and see how it feels. Move gently, move awkwardly — just move like a happy peach.
 										</p>
-										<a href="#" id="exerciseBtn" role="button" class="special">Challenge Of The Day</a>
+										<a href="javascript:void(0)" id="exerciseBtn" role="button" class="special">Challenge Of The Day</a>
 										<!-- <a href="#" id="doneBtn" role="button" class="special" style="display: none;">Challenge Completed</a> -->
 									</div>
 								</div>
@@ -370,11 +370,14 @@
 				getStrAtIndex('/assets/data/books.json', dailyRandom).then(result => {
 					const bookBtn = document.getElementById("bookBtn");
 					const bookContent = document.getElementById("bookContent");
-					bookBtn.addEventListener("click", function(event) {
+					const clickEvent = function(event) {
 						event.preventDefault(); // Prevent the link from navigating
 						bookContent.innerHTML = "Today's Fruit for Thought:<br/><strong>" +result.message + "</strong><br/><em>– " + result.info + "</em>";
 						document.getElementById("booksPlayer").src = result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/").replace("&", "?") + "&amp;enablejsapi=1&amp;loop=1";
-					});
+						bookBtn.style = "opacity: .5";
+						bookBtn.removeEventListener("click", clickEvent);
+					}
+					bookBtn.addEventListener("click", clickEvent);
 				});
 
 				var indoor = "";
@@ -389,13 +392,13 @@
 				});
 
 				const exerciseBtn = document.getElementById("exerciseBtn");
-				const doneBtn = document.getElementById("doneBtn");
-				exerciseBtn.addEventListener("click", function(event) {
+				const clickEvent = function(event) {
 					event.preventDefault(); // Prevent the link from navigating
 					document.getElementById("exerciseContent").innerHTML = "*Take a moment to check your surroundings. Safety first, fruit second.<br/><strong><em>" + outdoor + "</em></strong> or <strong><em>" + indoor + "</em></strong>";
-					//exerciseBtn.style = "display: none;";
-					//doneBtn.style = "display: block;";
-				});
+					exerciseBtn.style = "opacity: .5;";
+					exerciseBtn.removeEventListener("click", clickEvent);
+				};
+				exerciseBtn.addEventListener("click", clickEvent);
 
 				var form = document.getElementById("contactSquad");
   
