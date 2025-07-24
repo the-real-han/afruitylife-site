@@ -187,7 +187,7 @@
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
-								<p id="submissionSTatus"></p>
+								<p id="submissionStatus"></p>
 							</form>
 							<ul class="contact">
 								<li class="icon solid fa-envelope"><a href="mailto:broccoli@afruitylife.com" target="_blank">broccoli@afruitylife.com</a></li>
@@ -369,11 +369,10 @@
 
 				getStrAtIndex('/assets/data/books.json', dailyRandom).then(result => {
 					const bookBtn = document.getElementById("bookBtn");
-
+					const bookContent = document.getElementById("bookContent");
 					bookBtn.addEventListener("click", function(event) {
 						event.preventDefault(); // Prevent the link from navigating
-						document.getElementById("bookContent").innerHTML = "Today's inspirational idea:<br/>" +result.message + "<br/><em>– " + result.info + "</em>";
-						result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+						bookContent.innerHTML = "Today's Fruit for Thought:<br/><strong>" +result.message + "</strong><br/><em>– " + result.info + "</em>";
 						document.getElementById("booksPlayer").src = result.url.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/").replace("&", "?") + "&amp;enablejsapi=1&amp;loop=1";
 					});
 				});
@@ -393,7 +392,7 @@
 				const doneBtn = document.getElementById("doneBtn");
 				exerciseBtn.addEventListener("click", function(event) {
 					event.preventDefault(); // Prevent the link from navigating
-					document.getElementById("exerciseContent").innerHTML = "*Take a moment to check your surroundings. Safety first, fruit second.<br/><em>" + outdoor + "</em> <b>OR</b> <em>" + indoor + "</em>";
+					document.getElementById("exerciseContent").innerHTML = "*Take a moment to check your surroundings. Safety first, fruit second.<br/><strong><em>" + outdoor + "</em></strong> or <strong><em>" + indoor + "</em></strong>";
 					//exerciseBtn.style = "display: none;";
 					//doneBtn.style = "display: block;";
 				});
@@ -402,7 +401,7 @@
   
 				async function handleSubmit(event) {
 					event.preventDefault();
-					var status = document.getElementById("submissionSTatus");
+					var status = document.getElementById("submissionStatus");
 					var data = new FormData(event.target);
 					fetch(event.target.action, {
 					method: form.method,
