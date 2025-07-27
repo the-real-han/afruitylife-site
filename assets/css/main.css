@@ -96,7 +96,8 @@ iframe {
 	border-radius: 1rem;
 	aspect-ratio: 16 / 9;
 	max-width: 30vw;
-	
+	height: auto;
+  	width: 100%;
 }
 
 iframe.right {
